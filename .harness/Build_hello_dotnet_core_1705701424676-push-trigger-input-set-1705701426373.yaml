@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_hello_dotnet_core_1705701424676-push-trigger-input-set
+  identifier: Build_hello_dotnet_core_1705701424676pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: Houston
+  pipeline:
+    identifier: Build_hello_dotnet_core_1705701424676
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
