@@ -35,3 +35,27 @@ pipeline:
             spec: {}
             type: Cloud
         type: CI
+    - stage:
+        name: Docker
+        identifier: Docker
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            arch: Amd64
+            os: Linux
+          runtime:
+            spec: {}
+            type: Cloud
+          execution:
+            steps:
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: BuildAndPushDockerRegistry_1
+                  identifier: BuildAndPushDockerRegistry_1
+                  spec:
+                    connectorRef: Docker_Test
+                    repo: madeehalti/harness_test
+                    tags:
+                      - <+pipeline.sequenceId>
