@@ -7,18 +7,18 @@ EXPOSE 443
 # Use SDK image to build the application
 FROM mcr.microsoft.com/dotnet/sdk:latest as build
 WORKDIR /src
-COPY ["harness1.csproj", "./"]
-RUN dotnet restore "./harness1.csproj"
+COPY ["helloworld-dotnetcore.csproj", "./"]
+RUN dotnet restore "./helloworld-dotnetcore.csproj"
 COPY . .
 WORKDIR "/src/"
-RUN dotnet build "harness1.csproj" -c Release -o /app/build
+RUN dotnet build "helloworld-dotnetcore.csproj" -c Release -o /helloworld-dotnetcore/build
  
 # Publish the application
 FROM build AS publish
-RUN dotnet publish "harness1.csproj" -c Release -o /app/publish
+RUN dotnet publish "helloworld-dotnetcore.csproj" -c Release -o /helloworld-dotnetcore/publish
  
 # Final stage/image
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "harness1.dll"]
+COPY --from=publish /helloworld-dotnetcore/publish .
+ENTRYPOINT ["dotnet", "helloworld-dotnetcore.dll"]
